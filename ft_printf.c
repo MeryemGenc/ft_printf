@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int format_selector(va_list args, char c) // kac karakter yazdirdigini donecek - tum fonksiyonlar geriye int donecek
+int format_selector(va_list args, char c) // kac karakter yazdirdigini donecek -
 {
     if (c == '%')
         return ft_print_char('%');
@@ -8,10 +8,15 @@ int format_selector(va_list args, char c) // kac karakter yazdirdigini donecek -
         return ft_print_char(va_arg(args, int));
     if (c == 's')
         return ft_print_str(va_arg(args, char *));
-    if (c == 'd')
+    if (c == 'd' || c == 'i')
         return ft_print_nbr(va_arg(args, int));
+    if (c == 'p')
+        return ft_print_char(c);
     // if (c == 'c')
     //     return ft_print_char(c);
+    // if (c == 'c')
+    //     return ft_print_char(c);
+    return 0;
 }
 
 // % + selector kullanmama durumunda length artacak mı? % yi yazdıracak mı? error mu yollatmalıyız?
@@ -26,7 +31,7 @@ int ft_printf(const char *s, ...)
     {
         if (*s == '%')
         {
-            if (ft_strchr(SELECTORS, *(++s))) // if e girmese bile kosuldaki arttırımları yaptıgından emin ol
+            if (ft_strchr(SELECTORS, *(++s))) 
                 length += format_selector(args,*s);
         }
         else

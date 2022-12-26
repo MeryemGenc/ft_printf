@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
+// "puxX%"
+
 int main()
 {
     int a = 0,b=0;
-    a = ft_printf("aaa %c ddd %% eee %s fff %d ggg", 'b', "string", 3); // %s : segmentation fault
-    // % tek varsa ne olacak
-    b = printf("\n\naaa %c ddd %% eee %s fff %d ggg\n",'b',"string",3);
+    int *ptr;
+    ptr = &a;
+    a = ft_printf("\n\naaa %c ddd %% eee %s fff %d ggg %i hhh %p jjj \n", 'b', "string", 3, 72, ptr); 
+    // % tek varsa ne olacak -> hata mı verecek?
+    b = printf("\n\naaa %c ddd %% eee %s fff %d ggg %i hhh %p jjj \n", 'b', "string", 3, 72, ptr);
     printf("a: %d\nb: %d",a,b);
 
     return 0;
