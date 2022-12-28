@@ -11,11 +11,11 @@ int format_selector(va_list args, char c) // kac karakter yazdirdigini donecek -
     if (c == 'd' || c == 'i')
         return ft_print_nbr(va_arg(args, int));
     if (c == 'p')
-        return ft_print_char(c);
-    // if (c == 'c')
-    //     return ft_print_char(c);
-    // if (c == 'c')
-    //     return ft_print_char(c);
+        return ft_print_p(va_arg(args, void *));
+    if (c == 'x')
+        return ft_print_hexa_lower(va_arg(args, int));
+    if (c == 'X')
+        return ft_print_hexa_upper(va_arg(args, int));
     return 0;
 }
 
