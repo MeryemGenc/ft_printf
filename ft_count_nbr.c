@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_count_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgencali <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 15:01:48 by mgencali          #+#    #+#             */
-/*   Updated: 2023/01/05 15:01:50 by mgencali         ###   ########.tr       */
+/*   Created: 2023/01/05 15:00:11 by mgencali          #+#    #+#             */
+/*   Updated: 2023/01/05 15:00:20 by mgencali         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <stdio.h>
-# include <unistd.h>
+int	count_nbr(unsigned long nbr, int bs, int sign)
+{
+	int	count;
 
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		count_nbr(unsigned long nbr, int bs, int sign);
-int		ft_putnbr(long int nbr);
-int		ft_putnbr_hex(unsigned long nbr, char bs);
-
-size_t	ft_strlen(char *str);
-
-int		ft_printf(const char *str, ...);
-#endif
+	count = 0;
+	if (nbr == 0)
+		return (1);
+	while (nbr != 0)
+	{
+		nbr /= bs;
+		count++;
+	}
+	if (sign == -1)
+		count++;
+	return (count);
+}

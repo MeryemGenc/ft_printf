@@ -1,46 +1,70 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgencali <mgencali@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/05 15:01:28 by mgencali          #+#    #+#             */
+/*   Updated: 2023/12/15 13:24:49 by mgencali         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int format_selector(va_list args, char c) // kac karakter yazdirdigini donecek -
+#include "ft_printf.h"
+#include <stdarg.h>
+#include <stdio.h>
+
+int	prnt_second(va_list args, char k)
 {
-    if (c == '%')
-        return ft_print_char('%');
-    if (c == 'c')
-        return ft_print_char(va_arg(args, int));
-    if (c == 's')
-        return ft_print_str(va_arg(args, char *));
-    if (c == 'd' || c == 'i')
-        return ft_print_nbr(va_arg(args, int));
-    if (c == 'p')
-        return ft_print_p(va_arg(args, void *));
-    if (c == 'x')
-        return ft_print_hexa_lower(va_arg(args, int));
-    if (c == 'X')
-        return ft_print_hexa_upper(va_arg(args, int));
-    return 0;
+	int	len;
+
+	len = 0;
+	if (k == 'c')
+		len += ft_putchar(va_arg(args, int));
+	if (k == 's')
+		len += ft_putstr(va_arg(args, char *));
+	if (k == 'd' || k == 'i')
+		len += ft_putnbr(va_arg(args, int));
+	if (k == 'u')
+		len += ft_putnbr(va_arg(args, unsigned int));
+	if (k == 'x')
+		len += ft_putnbr_hex(va_arg(args, unsigned int), 'x');
+	if (k == 'X')
+		len += ft_putnbr_hex(va_arg(args, unsigned int), 'X');
+	if (k == '%')
+		len += ft_putchar('%');
+	if (k == 'p')
+	{
+		len += ft_putstr("0x");
+		len += ft_putnbr_hex(va_arg(args, unsigned long), 'x');
+	}
+	return (len);
 }
 
-// % + selector kullanmama durumunda length artacak mı? % yi yazdıracak mı? error mu yollatmalıyız?
-int ft_printf(const char *s, ...)
+int	ft_printf(const char *str, ...)
 {
-    va_list args;
-    int length;
+	va_list	args;
+	int		i;
+	int		len;
 
-    va_start(args, s);
-    length = 0;
-    while (*s)
-    {
-        if (*s == '%')
-        {
-            if (ft_strchr(SELECTORS, *(++s))) 
-                length += format_selector(args,*s);
-        }
-        else
-        {
-            ft_print_char(*s);
-            length++;
-        }
-        s++;
-    }
-    va_end(args);
-    return length;
+	i = 0;
+	len = 0;
+	if (!str)
+		return (0);
+	va_start(args, str);
+	while (str[i] != 0)
+	{
+		if (str[i] == '%')
+		{
+			len += prnt_second(args, str[i + 1]);
+			i++;
+		}
+		else
+		{
+			len += ft_putchar(str[i]);
+		}
+		i++;
+	}
+	va_end(args);
+	return (len);
 }

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgencali <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 15:01:48 by mgencali          #+#    #+#             */
-/*   Updated: 2023/01/05 15:01:50 by mgencali         ###   ########.tr       */
+/*   Created: 2023/01/05 15:04:10 by mgencali          #+#    #+#             */
+/*   Updated: 2023/01/05 15:04:12 by mgencali         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
+#include <stdio.h>
 
-# include <stdarg.h>
-# include <stdio.h>
-# include <unistd.h>
-
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		count_nbr(unsigned long nbr, int bs, int sign);
-int		ft_putnbr(long int nbr);
-int		ft_putnbr_hex(unsigned long nbr, char bs);
-
-size_t	ft_strlen(char *str);
-
-int		ft_printf(const char *str, ...);
-#endif
+int	ft_putnbr_hex(unsigned long nbr, char bs)
+{
+	if (nbr >= 16)
+	{
+		ft_putnbr_hex((nbr / 16), bs);
+		ft_putnbr_hex((nbr % 16), bs);
+	}
+	else
+	{
+		if (nbr < 10)
+			ft_putnbr(nbr);
+		else
+			ft_putchar(nbr - 10 + 'a' + bs - 'x');
+	}
+	return (count_nbr(nbr, 16, 1));
+}

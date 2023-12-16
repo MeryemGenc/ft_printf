@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgencali <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/05 15:01:48 by mgencali          #+#    #+#             */
-/*   Updated: 2023/01/05 15:01:50 by mgencali         ###   ########.tr       */
+/*   Created: 2023/01/05 15:04:57 by mgencali          #+#    #+#             */
+/*   Updated: 2023/01/05 15:04:59 by mgencali         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <stdio.h>
-# include <unistd.h>
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
 
-int		ft_putchar(char c);
-int		ft_putstr(char *str);
-int		count_nbr(unsigned long nbr, int bs, int sign);
-int		ft_putnbr(long int nbr);
-int		ft_putnbr_hex(unsigned long nbr, char bs);
-
-size_t	ft_strlen(char *str);
-
-int		ft_printf(const char *str, ...);
-#endif
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
